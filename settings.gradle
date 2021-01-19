@@ -1,0 +1,4 @@
+include ':common'
+include ':wear'
+include ':app'
+rootProject.name = "Firefly III Wear"

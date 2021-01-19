@@ -1,0 +1,23 @@
+def Group(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+ext {
+
+    room = Group {
+        api Dependencies.roomLibs
+        api Dependencies.roomExtension
+        kapt Dependencies.roomCompiler
+    }
+
+    kotlin = Group {
+        implementation Dependencies.kotlinLib
+        implementation Dependencies.coroutineCore
+    }
+
+    commonLib = Group {
+        implementation Dependencies.appCompat
+        implementation Dependencies.materialDesign
+    }
+}

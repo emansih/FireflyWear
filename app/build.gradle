@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.github.ben-manes.versions'
+}
+
+android {
+
+    compileSdkVersion Dependencies.compileSdk
+
+    defaultConfig {
+        applicationId "xyz.hisname.fireflyiii.wear"
+        minSdkVersion 19
+        targetSdkVersion Dependencies.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    kotlin()
+    commonLib()
+    implementation Dependencies.androidxCore
+    implementation Dependencies.androidxConstraintLayout
+    implementation Dependencies.playServicesWearLib
+    implementation project(':common')
+}
