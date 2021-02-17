@@ -19,6 +19,7 @@ package xyz.hisname.fireflyiii.wear
 
 import android.app.Activity
 import android.os.Bundle
+import android.support.wearable.complications.ProviderInfoRetriever
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.wear.widget.WearableLinearLayoutManager
@@ -56,7 +57,6 @@ class MainActivity: Activity(), DataClient.OnDataChangedListener  {
                 displayData()
             }
             sendMessage.addOnFailureListener {
-                it.printStackTrace()
                 displayData()
             }
         }
@@ -113,5 +113,4 @@ class MainActivity: Activity(), DataClient.OnDataChangedListener  {
                     }
         }
     }
-
 }

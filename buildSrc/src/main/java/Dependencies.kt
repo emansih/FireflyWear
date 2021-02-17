@@ -12,6 +12,7 @@ object Dependencies{
     private const val androidxWear = "1.1.0"
     private const val wearableVersion = "17.0.0"
     private const val googleWearableVersion = "2.8.1"
+    private const val androidxPrefVersion = "1.1.1"
 
     val roomLibs = "androidx.room:room-runtime:$roomVersion"
     val roomExtension = "androidx.room:room-ktx:$roomVersion"
@@ -24,5 +25,7 @@ object Dependencies{
     val kotlinLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     val playServicesWearLib = "com.google.android.gms:play-services-wearable:$wearableVersion"
     val androidxWearLib = "androidx.wear:wear:$androidxWear"
+    val googleSupportWearable = "com.google.android.support:wearable:$googleWearableVersion"
     val googleWearableLib = "com.google.android.wearable:wearable:$googleWearableVersion"
+    val androidxPref = "androidx.preference:preference-ktx:$androidxPrefVersion"
 }

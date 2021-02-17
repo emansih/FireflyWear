@@ -39,6 +39,7 @@ dependencies {
     commonLib()
     implementation Dependencies.playServicesWearLib
     implementation Dependencies.androidxWearLib
+    implementation Dependencies.googleSupportWearable
     implementation project(':common')
     compileOnly Dependencies.googleWearableLib
 }

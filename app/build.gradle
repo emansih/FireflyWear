@@ -40,5 +40,6 @@ dependencies {
     implementation Dependencies.androidxCore
     implementation Dependencies.androidxConstraintLayout
     implementation Dependencies.playServicesWearLib
+    implementation Dependencies.androidxPref
     implementation project(':common')
 }
