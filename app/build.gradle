@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.github.ben-manes.versions'
+    id "com.starter.easylauncher" version "3.9.0"
 }
 
 android {
@@ -20,8 +21,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            postprocessing {
+                removeUnusedCode true
+                removeUnusedResources true
+                obfuscate false
+                optimizeCode true
+                proguardFiles = ['proguard-rules.pro']
+            }
         }
     }
     compileOptions {
@@ -33,6 +39,17 @@ android {
     }
 }
 
+easylauncher{
+    buildTypes {
+        debug {
+            filters chromeLike(label: "Phone")
+        }
+        release {
+            filters chromeLike(label: "Phone")
+        }
+    }
+}
+
 dependencies {
 
     kotlin()
@@ -41,5 +58,6 @@ dependencies {
     implementation Dependencies.androidxConstraintLayout
     implementation Dependencies.playServicesWearLib
     implementation Dependencies.androidxPref
+    implementation Dependencies.billingClient
     implementation project(':common')
 }
