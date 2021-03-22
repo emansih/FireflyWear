@@ -20,10 +20,23 @@ package xyz.hisname.fireflyiii.wear
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.core.net.toUri
+import com.google.android.gms.wearable.Asset
+import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import xyz.hisname.fireflyiii.common.Constants
+import xyz.hisname.fireflyiii.common.data.AccountRepository
+import xyz.hisname.fireflyiii.common.data.AppDatabase
 import xyz.hisname.fireflyiii.wear.utils.DeviceCheck
 
 class MainActivity : AppCompatActivity() {
+
+    private val URI = "content://xyz.hisname.fireflyiii.provider/accountList".toUri()
+    private val accountRepository by lazy { AccountRepository(AppDatabase.getInstance(this@MainActivity).accountDao()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +55,24 @@ class MainActivity : AppCompatActivity() {
                     findViewById<TextView>(R.id.appInstalledText).text =
                         "❌ Please ensure you have a connected device running WearOS"
                 }
+            }
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        if(DeviceCheck.isApproved(this)){
+            CoroutineScope(Dispatchers.IO).launch {
+                val cursor = this@MainActivity.contentResolver.query(URI,
+                        null, null, null, null)
+                accountRepository.insert(cursor)
+                val dataMap = PutDataMapRequest.create("/accountsList")
+                dataMap.dataMap.putAsset("accountsList",
+                        Asset.createFromUri(this@MainActivity.getDatabasePath(Constants.DB_NAME).toUri()))
+                val request = dataMap.asPutDataRequest()
+                request.setUrgent()
+                Wearable.getDataClient(this@MainActivity).putDataItem(request)
             }
         }
     }
