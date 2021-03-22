@@ -27,12 +27,12 @@ class AccountRepository(private val accountDao: AccountDao) {
             accountDao.deleteAll()
             do {
                 accountDao.insert(
-                    AccountData(
-                    cursor.getLong(cursor.getColumnIndex("accountId")),
-                    cursor.getString(cursor.getColumnIndex("name")),
-                    cursor.getString(cursor.getColumnIndex("current_balance")),
-                    cursor.getString(cursor.getColumnIndex("currency_symbol"))
-                )
+                        AccountData(
+                                cursor.getLong(cursor.getColumnIndex("accountId")),
+                                cursor.getString(cursor.getColumnIndex("name")),
+                                cursor.getString(cursor.getColumnIndex("current_balance")),
+                                cursor.getString(cursor.getColumnIndex("currency_symbol"))
+                        )
                 )
             } while (cursor.moveToNext())
         }

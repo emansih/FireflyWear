@@ -21,13 +21,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asExecutor
 import xyz.hisname.fireflyiii.common.Constants
 import xyz.hisname.fireflyiii.common.model.AccountData
 
 
-@Database(entities = [AccountData::class], version = 1, exportSchema = true)
+@Database(entities = [AccountData::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase()  {
 
     abstract fun accountDao(): AccountDao
@@ -36,12 +34,12 @@ abstract class AppDatabase: RoomDatabase()  {
         @Volatile private var INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this){
-                INSTANCE ?: Room.databaseBuilder(context,
-                    AppDatabase::class.java, Constants.DB_NAME)
-                    .setQueryExecutor(Dispatchers.IO.asExecutor())
-                    .fallbackToDestructiveMigration()
-                    .build().also { INSTANCE = it }
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(context, AppDatabase::class.java, Constants.DB_NAME)
+                        .fallbackToDestructiveMigration()
+                        .build()
+                INSTANCE = instance
+                instance
             }
         }
     }

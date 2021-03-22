@@ -17,10 +17,7 @@
 
 package xyz.hisname.fireflyiii.common.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import xyz.hisname.fireflyiii.common.model.AccountData
 
@@ -28,7 +25,7 @@ import xyz.hisname.fireflyiii.common.model.AccountData
 abstract class AccountDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insert(vararg obj: AccountData)
+    abstract suspend fun insert(obj: AccountData)
 
     @Query("DELETE FROM accounts")
     abstract suspend fun deleteAll()
