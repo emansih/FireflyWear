@@ -58,6 +58,5 @@ dependencies {
     implementation Dependencies.androidxConstraintLayout
     implementation Dependencies.playServicesWearLib
     implementation Dependencies.androidxPref
-    implementation Dependencies.billingClient
     implementation project(':common')
 }
