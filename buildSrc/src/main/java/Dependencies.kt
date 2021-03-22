@@ -3,7 +3,7 @@ object Dependencies{
     const val targetSdk = 30
     const val compileSdk = 30
     const val kotlinVersion = "1.4.21"
-    private const val roomVersion = "2.2.5"
+    private const val roomVersion = "2.2.6"
     private const val coroutineVersion = "1.3.7"
     private const val appCompatVersion = "1.3.0-beta01"
     private const val materialDesignVersion = "1.3.0-alpha04"
