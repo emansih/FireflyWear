@@ -19,7 +19,6 @@ package xyz.hisname.fireflyiii.wear
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.wearable.complications.ProviderInfoRetriever
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.wear.widget.WearableLinearLayoutManager
@@ -64,8 +63,14 @@ class MainActivity: Activity(), DataClient.OnDataChangedListener  {
 
     private fun displayData(){
         val recyclerView = findViewById<WearableRecyclerView>(R.id.recycler_launcher_view)
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        recyclerView.layoutManager = WearableLinearLayoutManager(this)
+        recyclerView.apply {
+            isEdgeItemsCenteringEnabled = true
+            addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+            layoutManager = WearableLinearLayoutManager(this@MainActivity,  CustomScrollingLayoutCallback())
+            isCircularScrollingGestureEnabled = true
+            bezelFraction = 0.5f
+            scrollDegreesPerScreen = 90f
+        }
         CoroutineScope(Dispatchers.Main).launch {
             val accountRepository = AccountRepository(AppDatabase.getInstance(this@MainActivity).accountDao())
             accountRepository.getData().collectLatest {  accountData ->
